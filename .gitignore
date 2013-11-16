@@ -1,1 +1,10 @@
-/development/htmlEmail/.gitignore
+.DS_Store
+.elasticbeanstalk
+.idea
+
+node_modules
+npm-debug.log
+
+/dist
+.tmp
+.sass-cache

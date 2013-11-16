@@ -9,6 +9,7 @@ exports.index = function(req, res){
     css: "",
     html: "",
     processedHtml: "",
+    preprocessor: "css",
     minifiedHtml: ""
   };
 
@@ -35,7 +36,8 @@ exports.process = function(req, res){
       data = {
         css: "",
         html: "",
-        processedHtml: ""
+        processedHtml: "",
+        preprocessor: "css"
       },
       minifyOptions = {
         removeComments: true,
@@ -49,11 +51,30 @@ exports.process = function(req, res){
 
   if(req.body) {
     data = req.body;
+
+    switch(data.preprocesor) {
+      case "less":
+        var less = new(less);
+
+        // TODO: implement this in a sync manner or convert this all to async code
+        // less.render(data.css, function (err, css) {
+        //   if (err) throw err;
+
+        //   data.css = css;
+        // });
+        break;
+      case "sass":
+        var sass = require('node-sass');
+
+        data.css = sass.renderSync({
+          data: data.css
+        });
+        break;
+      default:
+    }
   }
 
   data.processedHtml = juice.inlineContent(data.html, data.css);
-
-console.log(htmlminify(data.processedHtml, minifyOptions));
   data.minifiedHtml = htmlminify(data.processedHtml, minifyOptions);
 
   req.session.data = data;

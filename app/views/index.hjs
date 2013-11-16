@@ -33,7 +33,20 @@
         <div class="col-md-12">
           <form method="post" action="/process">
             <div class="form-group">
-              <label for="css">CSS</label>
+              <label for="css">Style</label>
+            </div>
+            <div class="form-group">
+              <label class="radio-inline">
+                <input type="radio" id="select-css" name="preprocessor" value="css"> CSS
+              </label>
+              <label class="radio-inline">
+                <input disabled="disabled" type="radio" id="select-less" name="preprocessor" value="less"> LESS
+              </label>
+              <label class="radio-inline">
+                <input type="radio" id="select-sass" name="preprocessor" value="sass"> SASS
+              </label>
+            </div>
+            <div class="form-group">
               <textarea class="form-control" id="css" name="css" rows="10">
                 {{ css }}
               </textarea>
